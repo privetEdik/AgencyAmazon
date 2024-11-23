@@ -1,4 +1,4 @@
-package kettlebell.agencyamazon.models.statistics;
+package kettlebell.agencyamazon.models.statistics.dto;
 
 import lombok.Data;
 

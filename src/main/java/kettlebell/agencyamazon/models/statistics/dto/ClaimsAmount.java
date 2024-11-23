@@ -1,8 +1,9 @@
-package kettlebell.agencyamazon.models.statistics;
+package kettlebell.agencyamazon.models.statistics.dto;
 
 import lombok.Data;
+
 @Data
-public class OrderedProductSales {
+public class ClaimsAmount {
     private double amount;
     private String currencyCode;
 }

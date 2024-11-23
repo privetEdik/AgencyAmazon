@@ -1,6 +1,6 @@
 package kettlebell.agencyamazon.repository.statistics;
 
-import kettlebell.agencyamazon.models.statistics.SalesAndTrafficByAsin;
+import kettlebell.agencyamazon.models.statistics.dto.SalesAndTrafficByAsin;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

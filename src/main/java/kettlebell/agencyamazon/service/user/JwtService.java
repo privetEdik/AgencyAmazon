@@ -1,8 +1,8 @@
-package kettlebell.agencyamazon.config.security;
+package kettlebell.agencyamazon.service.user;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,17 +10,14 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtTokenProvider {
+@Slf4j
+public class JwtService {
+    private final Key secretKey;
+    private final Long validityInMilliseconds;
 
-    @Value("${token.ttl}")
-    private long validityInSeconds;
-    private Key secretKey;
-    private long validityInMilliseconds;
-
-    @PostConstruct
-    public void init() {
-        secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        validityInMilliseconds = validityInSeconds * 1000;
+    public JwtService(@Value("${token.ttl}") Long validityInSeconds) {
+        this.validityInMilliseconds = validityInSeconds * 1000;
+        this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
     public String generateToken(String username) {
@@ -52,6 +49,7 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            log.error("error validation token {}", e.getMessage());
             return false;
         }
     }
